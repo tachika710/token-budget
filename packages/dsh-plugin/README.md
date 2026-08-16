@@ -1,11 +1,11 @@
-# dsh-token-budget
+# @token-budget/dsh-plugin
 
 DeepSeek Harness 插件 — 通过读取企划书 / 半成品项目 / 资料，预估 LLM token 消耗量并按各家定价实时计费。
 
 ## 安装
 
 ```bash
-dsh plugin --profile web add dsh-token-budget@0.1.0
+dsh plugin --profile web add @token-budget/dsh-plugin@0.1.0
 dsh web
 ```
 
@@ -30,7 +30,7 @@ dsh web --patch ./cordis.patch.yml
 
 ```yaml
 - insert:
-    - id: dsh-token-budget
+    - id: token-budget
       name: ${DSH_PLUGIN_DIR}/src/index.js
       config:
         displayCurrency: USD              # USD 或 CNY

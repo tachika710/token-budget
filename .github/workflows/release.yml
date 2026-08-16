@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write  # softprops/action-gh-release 需要这个才能创建 Release
   id-token: write  # 用于 npm --provenance（供应链溯源，可选）
 
 jobs:
