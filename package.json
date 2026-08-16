@@ -1,0 +1,23 @@
+{
+  "name": "dsh-token-budget-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Token consumption & cost estimator plugin for DeepSeek Harness + MCP clients",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "node --test packages/core/test/",
+    "demo": "node packages/core/src/cli.js"
+  },
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "mcp",
+    "token-counter",
+    "llm-pricing",
+    "cost-estimator"
+  ]
+}

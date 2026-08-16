@@ -1,0 +1,25 @@
+{
+  "name": "@token-budget/core",
+  "version": "0.1.0",
+  "description": "Platform-agnostic token counter + LLM pricing table + cost calculator",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./pricing": "./src/pricing.js",
+    "./models": "./src/models.js",
+    "./tokenizer": "./src/tokenizer.js",
+    "./counter": "./src/counter.js",
+    "./calculator": "./src/calculator.js"
+  },
+  "dependencies": {
+    "gpt-tokenizer": "^2.5.0"
+  },
+  "peerDependencies": {
+    "gpt-tokenizer": "^2.5.0"
+  },
+  "peerDependenciesMeta": {
+    "gpt-tokenizer": { "optional": true }
+  },
+  "license": "MIT"
+}

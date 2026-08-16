@@ -1,0 +1,21 @@
+# DeepSeek Harness Cordis 配置补丁
+# 把 dsh-token-budget 插件插入到 web profile 的工具栈
+# 安装方式:
+#   dsh plugin --profile web add ./packages/dsh-plugin
+# 或本地 patch 调试:
+#   dsh web --patch ./packages/dsh-plugin/cordis.patch.yml
+- insert:
+    - id: dsh-token-budget
+      name: ${DSH_PLUGIN_DIR}/src/index.js
+      config:
+        # 默认输出货币（USD / CNY）
+        displayCurrency: USD
+        # 默认缓存命中比例（0-1）
+        defaultCacheHitRatio: 0
+        # 默认输出 / 输入比例（仅在工具未传 outputTokens 时使用）
+        defaultOutputRatio: 0.3
+        # 是否强制使用启发式估算（不依赖 gpt-tokenizer）
+        forceHeuristic: false
+        # 自定义定价覆盖（合并到主定价表之上）
+        # pricingOverrides:
+        #   gpt-4.1: { input: 2.00, output: 8.00, currency: USD }
