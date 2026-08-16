@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 提问 / 讨论
+    url: https://github.com/tachika710/token-budget/discussions
+    about: 算法疑问、使用技巧、经验分享，请发到 Discussions 而不是 issue。
+  - name: README 快速参考
+    url: https://github.com/tachika710/token-budget/blob/main/README.md
+    about: 功能和用法说明都在这里，先看再提问。
