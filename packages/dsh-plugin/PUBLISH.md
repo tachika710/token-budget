@@ -1,4 +1,4 @@
-# dsh-token-budget 发布（DSH 专属）
+# @token-budget/dsh-plugin 发布（DSH 专属）
 
 > 通用发布流程见仓库根目录 [PUBLISH.md](../../PUBLISH.md)。本文件只覆盖 DSH 插件商店的额外要求。
 

@@ -27,5 +27,23 @@
     "cursor",
     "trae"
   ],
-  "license": "MIT"
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tachika710/token-budget.git",
+    "directory": "packages/mcp-server"
+  },
+  "homepage": "https://github.com/tachika710/token-budget#readme",
+  "bugs": {
+    "url": "https://github.com/tachika710/token-budget/issues"
+  },
+  "author": "tachika710",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

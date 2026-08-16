@@ -1,5 +1,5 @@
 {
-  "name": "dsh-token-budget",
+  "name": "@token-budget/dsh-plugin",
   "version": "0.1.0",
   "description": "DeepSeek Harness 插件 — 通过读取企划书 / 半成品软件 / 资料预估特定模型的 token 消耗量并实时按各家定价计费",
   "type": "module",
@@ -30,5 +30,24 @@
       "patch": "./cordis.patch.yml"
     }
   },
-  "license": "MIT"
+  "files": [
+    "src",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tachika710/token-budget.git",
+    "directory": "packages/dsh-plugin"
+  },
+  "homepage": "https://github.com/tachika710/token-budget#readme",
+  "bugs": {
+    "url": "https://github.com/tachika710/token-budget/issues"
+  },
+  "author": "tachika710",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

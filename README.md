@@ -239,7 +239,7 @@ Agent: 内置价格可能过时，请刷新 openai 和 deepseek 的价格。
 
 ```yaml
 - insert:
-    - id: dsh-token-budget
+    - id: token-budget
       name: ${DSH_PLUGIN_DIR}/src/index.js
       config:
         displayCurrency: USD           # 默认输出货币

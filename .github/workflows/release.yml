@@ -1,0 +1,90 @@
+name: Release to npm
+
+# 推送 v*.*.* 格式的 tag 时触发发布
+# 例：git tag v0.1.0 && git push origin v0.1.0
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+# 防止同一 tag 重复发布冲突
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write  # 用于 npm --provenance（供应链溯源，可选）
+
+jobs:
+  publish:
+    name: Publish @token-budget/*
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+          cache: 'npm'
+
+      - name: Install dependencies (root)
+        run: npm install --no-audit --no-fund
+
+      - name: Verify tag matches package versions
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          echo "Expected version: $TAG"
+          for pkg in core mcp-server dsh-plugin; do
+            V=$(node -p "require('./packages/$pkg/package.json').version")
+            echo "  packages/$pkg → $V"
+            if [ "$V" != "$TAG" ]; then
+              echo "::error::Version mismatch in packages/$pkg (expected $TAG, got $V)"
+              exit 1
+            fi
+          done
+
+      # 顺序发布：core 必须最先（其他包依赖它）
+      - name: Publish @token-budget/core
+        run: npm publish --access public --provenance
+        working-directory: packages/core
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @token-budget/mcp-server
+        run: npm publish --access public --provenance
+        working-directory: packages/mcp-server
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @token-budget/dsh-plugin
+        run: npm publish --access public --provenance
+        working-directory: packages/dsh-plugin
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
+          body: |
+            ## Published to npm
+
+            - [`@token-budget/core@${{ github.ref_name }}`](https://www.npmjs.com/package/@token-budget/core)
+            - [`@token-budget/mcp-server@${{ github.ref_name }}`](https://www.npmjs.com/package/@token-budget/mcp-server)
+            - [`@token-budget/dsh-plugin@${{ github.ref_name }}`](https://www.npmjs.com/package/@token-budget/dsh-plugin)
+
+            **MCP 一行接入**：
+            ```bash
+            npx -y @token-budget/mcp-server@${{ github.ref_name }}
+            ```
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
